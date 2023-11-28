@@ -1,12 +1,24 @@
-import { usePreloadedQuery } from "react-relay";
-import { PokemonsQuery } from "../queries";
-import { queries_PokemonsQuery } from "../__generated__/queries_PokemonsQuery.graphql";
+import { PreloadedQuery, graphql, usePreloadedQuery } from "react-relay";
+import { PokemonListQuery } from "./__generated__/PokemonListQuery.graphql";
 
-export const PokemonList = ({ queryRef }: { queryRef: any }) => {
-  const data = usePreloadedQuery<queries_PokemonsQuery>(
-    PokemonsQuery,
-    queryRef
-  );
+export const pokemonListQuery = graphql`
+  query PokemonListQuery($limit: Int, $offset: Int) {
+    pokemons(limit: $limit, offset: $offset) {
+      results {
+        url
+        name
+        image
+      }
+    }
+  }
+`;
+
+export const PokemonList = ({
+  queryRef,
+}: {
+  queryRef: PreloadedQuery<PokemonListQuery>;
+}) => {
+  const data = usePreloadedQuery<PokemonListQuery>(pokemonListQuery, queryRef);
 
   return (
     <div>

@@ -1,46 +1,11 @@
 import React from "react";
-import {
-  QueryRenderer,
-  graphql,
-  useLazyLoadQuery,
-  usePreloadedQuery,
-  useQueryLoader,
-} from "react-relay";
-// import { useQueryLoader } from "react-relay/hooks";
-import environment from "../../RelayEnvironment";
-import { PokemonList } from "./PokemonList/PokemonList";
-import { PokemonsQuery } from "./queries";
+import { useQueryLoader } from "react-relay";
+import { PokemonList, pokemonListQuery } from "./PokemonList/PokemonList";
 import { PokemonListQuery } from "./PokemonList/__generated__/PokemonListQuery.graphql";
-import { queries_PokemonsQuery } from "./__generated__/queries_PokemonsQuery.graphql";
 
 export const Pokemons = () => {
-  // const { pokemons } = useLazyLoadQuery<PokemonListQuery>(
-  //   graphql`
-  //     query PokemonListQuery($limit: Int, $offset: Int) {
-  //       pokemons(limit: $limit, offset: $offset) {
-  //         count
-  //         next
-  //         previous
-  //         nextOffset
-  //         prevOffset
-  //         status
-  //         message
-  //         results {
-  //           url
-  //           name
-  //           image
-  //         }
-  //       }
-  //     }
-  //   `,
-  //   {
-  //     limit: 10,
-  //     offset: 0,
-  //   }
-  // );
-
-  const [pokemonsQueryRef, loadPokemonsQuery, disposePokemonListQuery] =
-    useQueryLoader<queries_PokemonsQuery>(PokemonsQuery);
+  const [pokemonListQueryRef, loadPokemonListQuery, disposePokemonListQuery] =
+    useQueryLoader<PokemonListQuery>(pokemonListQuery);
 
   React.useEffect(() => {
     return () => {
@@ -48,11 +13,11 @@ export const Pokemons = () => {
     };
   }, []);
 
-  if (!pokemonsQueryRef) {
+  if (!pokemonListQueryRef) {
     return (
       <button
         onClick={() =>
-          loadPokemonsQuery({
+          loadPokemonListQuery({
             limit: 10,
             offset: 0,
           })
@@ -66,7 +31,7 @@ export const Pokemons = () => {
   return (
     <div>
       <React.Suspense fallback="Loading">
-        <PokemonList queryRef={pokemonsQueryRef} />
+        <PokemonList queryRef={pokemonListQueryRef} />
       </React.Suspense>
     </div>
   );
