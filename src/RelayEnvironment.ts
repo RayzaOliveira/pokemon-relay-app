@@ -6,8 +6,14 @@ import {
   Store,
 } from "relay-runtime";
 
+const URLS = [
+  'https://graphql-pokeapi.vercel.app/api/graphql',
+  'https://graphql-pokemon2.vercel.app/',
+  'https://swapi-graphql.netlify.app/.netlify/functions/index'
+]
+
 const fetchQuery: FetchFunction = (operation, variables) => {
-  return fetch("https://graphql-pokeapi.vercel.app/api/graphql", {
+  return fetch(URLS[2], {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

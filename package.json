@@ -1,5 +1,5 @@
 {
-  "name": "pokemon-relay-app",
+  "name": "starwars-relay-app",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -11,10 +11,13 @@
     "relay": "relay-compiler"
   },
   "dependencies": {
+    "@ttoss/components": "^1.29.29",
+    "@ttoss/ui": "^4.0.5",
     "babel-plugin-relay": "^16.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-relay": "^16.0.0",
+    "react-router-dom": "^6.20.1",
     "relay-runtime": "^16.0.0",
     "vite-plugin-relay": "^2.0.0"
   },
